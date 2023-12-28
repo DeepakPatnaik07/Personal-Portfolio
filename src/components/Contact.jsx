@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { MdOutlineEmail } from 'react-icons/md';
 import { BsWhatsapp } from 'react-icons/bs';
+import emailjs from '@emailjs/browser';
+import { useEffect } from 'react';
 
 const contact = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -10,28 +12,29 @@ const contact = () => {
   const [message, setMessage] = useState('');
   const form = useRef(null);
 
+  useEffect(() => emailjs.init("vqkfYIcxvDddFBUr8"), []);
+
   const submitForm = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await fetch('/api/sendMail', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, message }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setLoading(false);
-        if (data.message === 'success') {
-          setIsFormSubmitted(true);
-          form.current.reset();
-        } else {
-          setIsFormSubmitted(false);
-          alert('Something went wrong. Please try again later.');
-        }
+    const serviceId = "service_5cj42xi";
+    const templateId = "template_so0rcqt";
+    try {
+      await emailjs.send(serviceId, templateId, {
+       name,
+       email, 
+       message,
       });
+      setIsFormSubmitted(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+      e.target.reset();
   };
+
+
 
   return (
     <div className='bg-gray-100 dark:bg-[#1E2226]' id='contact'>
@@ -53,7 +56,7 @@ const contact = () => {
                 <h4 className='font-bold mt-2'>WhatsApp</h4>
                 <h5 className='font-semibold text-sm mb-2'>+91 9348564091</h5>
                 <a
-                  href='https://api.whatsapp.com/send?phone=+919348564091'
+                  href='https://wa.me/+919348564091'
                   target='_blank'
                 >
                   <p className='text-sm hover:text-blue-500'>Send a Message</p>

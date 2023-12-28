@@ -1,7 +1,10 @@
 
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import chamanchutiya from "../assets/chamanchutiya.png";
 import { gsap } from 'gsap';
+import {client, urlFor} from "../client";
+
+
 
 const revealTextAnimation = () => {
   const textElement = document.querySelector('.reveal'); // Adjust this selector as needed
@@ -34,6 +37,12 @@ const revealTextAnimation1 = () => {
 
 
 export default function Hero() {
+  const [about, setAbout] = useState({});// variable to store the data from the API
+  useEffect(() => {
+    const query = '*[_type == "about"]';// query to fetch the data from the API
+    client.fetch(query).then((res) => setAbout(res[0])).catch((err) => console.log(err));// fetching the data from the API
+  }, []);
+
   useEffect(() => {
     revealTextAnimation();
     revealTextAnimation1(); 
@@ -47,27 +56,26 @@ export default function Hero() {
             <div className="flex flex-col items-end w-2/3">
               <div className="relative -mt-[320px] justify-center">
                 <img
-                  src={chamanchutiya}
+                  src={about.heroimage ? urlFor(about.heroimage).url() : chamanchutiya}
                   alt="Deepak"
                   className="my_photo w-auto h-[500px] xl:h-[600px] object-cover relative z-10 opacity-100"
                 />
                 <div className="absolute top-1/2 -left-40 transform -translate-x-1/2 -translate-y-1/2">
-                  <h1 className="reveal text-7xl lg:text-[120px] font-extrabold text-gray-700 dark:text-[#f2f9ff] font-gilroy-bold text-left text-shadow-lg shadow-gray-600">
-                    DEEPAK PATNAIK
+                  <h1 className="reveal text-7xl lg:text-[120px] font-extrabold text-gray-700 dark:text-[#f2f9ff] font-gilroy-bold text-left text-shadow-lg shadow-gray-600 uppercase">
+                    {about.name}
                   </h1>
                 </div>
               </div>
             </div>
             <div className="reveal-right text-gray-700 dark:text-[#1E2226] text-justify w-1/3">
-              <p className="reveal-right text-gray-900 dark:text-[#f2f9ff] text-xl">CYBER SECURITY ANALYST IN TRAINING</p>
+              <p className="reveal-right text-gray-900 dark:text-[#f2f9ff] text-xl uppercase">{about.title}</p>
               <br/>
               <p className="reveal-right text-2xl font-gilroy-bold font-bold text-gray-900 dark:text-[#f2f9ff]">
-                Based in India,<br/>
-                  I am a 4th year CSE undergrad and a cyber security enthusiast.
+                {about.shortbio}
               </p>
               <br/>
-              <p className="reveal-right font-gilroy-bold text-gray-900 dark:text-[#f2f9ff]">Gmail: dpkptnk00007@gmail.com</p>
-              <p className="reveal-right font-gilroy-bold text-gray-900 dark:text-[#f2f9ff]"> Phone: 9348564091</p>
+              <p className="reveal-right font-gilroy-bold text-gray-900 dark:text-[#f2f9ff]">Gmail: {about.email}</p>
+              <p className="reveal-right font-gilroy-bold text-gray-900 dark:text-[#f2f9ff]">Phone: {about.phone}</p>
             </div>
           </div>
         </div>

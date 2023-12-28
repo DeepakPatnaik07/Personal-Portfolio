@@ -4,6 +4,7 @@
 @tailwind utilities;
 
 
+
 .dark_toggle{
   @apply rounded-full py-1.5 px-5 transition-all duration-500 ease-in-out;
 }
@@ -31,4 +32,15 @@
   100% {
     border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
   }
+}
+
+#my-text{
+  text-transform: uppercase;
+  clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+  line-height: 5.9rem;
+}
+
+.char {
+  transform: translateY(115px);
+  transition: trasnform .5s;
 }

@@ -13,16 +13,16 @@ function Navbar() {
     }
   }, [mode]);
 
-  useEffect(() => {
-    const typingInterval = setInterval(() => {
-      setTypingText((prevText) => {
-        const truncatedText = name.substring(0, prevText.length + 1);
-        return truncatedText === name ? prevText : truncatedText;
-      });
-    }, 100); 
+  // useEffect(() => {
+  //   const typingInterval = setInterval(() => {
+  //     setTypingText((prevText) => {
+  //       const truncatedText = name.substring(0, prevText.length + 1);
+  //       return truncatedText === name ? prevText : truncatedText;
+  //     });
+  //   }, 100); 
 
-    return () => clearInterval(typingInterval);
-  }, []);
+  //   return () => clearInterval(typingInterval);
+  // }, []);
 
   const changeTheme = () => {
     console.log(mode);

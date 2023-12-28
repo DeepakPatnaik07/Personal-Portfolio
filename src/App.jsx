@@ -9,6 +9,7 @@ import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Project from './components/Projects'
 import Footer from './components/Footer'
+import Photogallery from './components/photogallery'
 
 function App() {
   
@@ -21,7 +22,9 @@ function App() {
     <Skills/>
     <Experience/>
     <Project/>
+    <Photogallery/> 
     <Slider/> 
+    {/* <Photogallery/> */}
     <Contact/>
     <Footer/>
     </>

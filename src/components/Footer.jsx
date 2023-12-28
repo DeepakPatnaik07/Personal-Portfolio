@@ -1,4 +1,5 @@
 import React from 'react';
+import chamanchutiyekasign from '../assets/Signature.png';
 
 const links = [
   { name: 'Home', href: '#home' },
@@ -11,15 +12,15 @@ const links = [
 const Footer = () => {
   return (
     <footer className='border-t-2 border-black bg-gray-300 dark:bg-[#15181b] dark:bg-dark py-8 px-2 flex flex-col items-center justify-center'>
-      {/* <a href='/' className='p-1'>
+      <a href='/' className='p-1'>
         <img
-          src='/images/logo.png'
-          alt='Kushagra'
+          src={chamanchutiyekasign}
+          alt='Deepak Patnaik'
           className='dark:invert'
-          width={300}
-          height={300}
+          width={200}
+          height={200}
         />
-      </a> */}
+      </a>
       <div className='flex flex-col sm:flex-row justify-center items-center sm:mt-10 sm:gap-6 gap-8 mt-5 font-medium text-lg lg:text-xl font-gilroy-extrabold'>
         {links.map((link) => (
           <a
