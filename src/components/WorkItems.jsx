@@ -1,17 +1,20 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import {client, urlFor} from "../client";
 
 const Work_items = ({ item }) => {
+
   return (
-    <div className="border shadow-xl h-full w-60 rounded-xl" key={item.id}>
+    <div className="border shadow-xl h-full w-60 rounded-xl" key={item.name}>
         <div className="overflow-hidden rounded-t-xl">
       <img
-        src={item.image}
+        src={urlFor(item.image).url()}
         alt="work"
         className="h-60 object-cover transition-transform duration-500 ease-in-out transform hover:scale-110"
         />
         </div>
       <div className="py-2 px-4 flex flex-col justify-between">
-        <h3 className="font-medium text-lg text-black dark:text-gray-300 ">{item.title}</h3>
+        <h3 className="font-medium text-lg text-black dark:text-gray-300 ">{item.name}</h3>
         <a href={item.url} className="text-blue-500">
           View <i className="fas fa-arrow-right"></i>
         </a>

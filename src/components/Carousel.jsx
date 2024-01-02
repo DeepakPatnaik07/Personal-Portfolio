@@ -1,39 +1,29 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
-import FirstImage from '../assets/1.jpg'
-import SecondImage from '../assets/2.jpg'
-import ThirdImage from '../assets/3.jpg'
-import FourthImage from '../assets/4.jpg'
-import FifthImage from '../assets/5.jpg'
-import SixthImage from '../assets/6.jpg'
-
-
-const Carouselitems = [
-  '../assets/1.jpg',
-  '../assets/2.jpg',
-  '../assets/3.jpg',
-  '../assets/4.jpg',
-  '../assets/5.jpg',
-  '../assets/6.jpg',
-];
+import { useEffect, useState } from "react";
+import imgone from "../assets/imgone.jpg";
+import { client, urlFor } from "../client";
 
 const CarouselCard = ({ image }) => {
   return (
     <div className="h-[500px] w-full relative">
-      <img src={image} alt="carousel" className="h-[500px] w-full opacity-50 object-cover" />
+      <img src= {image ? urlFor(image).url() : imgone} alt="carousel" className="h-[500px] w-full opacity-50 object-cover" />
       <div className="absolute inset-0 bg-black/50" />
-      <img src={image} alt="carousel" className=" absolute h-[450px] w-3/4 top-[5%] left-[12%] object-cover" />
+      <img src={image ? urlFor(image).url() : imgone} alt="carousel" className=" absolute h-[450px] w-3/4 top-[5%] left-[12%] object-cover" />
     </div>
   )
 }
 
 const Slider = () => {
+  const [carousel, setCarousel] = useState([]);// variable to store the data from the API
+  useEffect(() => {
+    const query = '*[_type == "carousel"]';// query to fetch the data from the API
+    client.fetch(query).then((res) => setCarousel(res)).catch((err) => console.log(err));// fetching the data from the API
+  }, []);
+
   return (
     <div className="relative">
-    <div>
-      </div>
       <Carousel
         additionalTransfrom={0}
         arrows
@@ -89,19 +79,19 @@ const Slider = () => {
         swipeable
         transitionDuration={1000}
       >
-        {/* {Carouselitems.map((item, index) => {
+        {carousel.map((item, index) => {
           return (
             <div key={index}>
-              <img src={item} alt="carousel" />
+              <CarouselCard image={item.image} />
             </div>
           );
-        })} */}
-        <CarouselCard image={FirstImage} />
-        <CarouselCard image={SecondImage} />
-        <CarouselCard image={ThirdImage} />
-        <CarouselCard image={FourthImage} />
-        <CarouselCard image={FifthImage} />
-        <CarouselCard image={SixthImage} />
+        })}
+        {/* <CarouselCard image={CarouselCard[0]} />
+        <CarouselCard image={CarouselCard[1]} />
+        <CarouselCard image={CarouselCard[2]} />
+        <CarouselCard image={CarouselCard[3]} />
+        <CarouselCard image={CarouselCard[4]} />
+        <CarouselCard image={CarouselCard[5]} /> */}
       </Carousel>
     </div>
   );

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { gsap } from "gsap";
 
 function Photogallery() {
+  
   useEffect(() => {
     const myText = new SplitType("#my-text");
     gsap.to(".char", {

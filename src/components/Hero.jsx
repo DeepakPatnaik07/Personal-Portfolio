@@ -6,6 +6,7 @@ import {client, urlFor} from "../client";
 
 
 
+
 const revealTextAnimation = () => {
   const textElement = document.querySelector('.reveal'); // Adjust this selector as needed
 

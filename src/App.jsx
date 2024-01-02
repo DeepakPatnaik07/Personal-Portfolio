@@ -23,7 +23,7 @@ function App() {
     <Experience/>
     <Project/>
     <Photogallery/> 
-    <Slider/>
+    <Slider/> 
     <Contact/>
     <Footer/>
     </>
